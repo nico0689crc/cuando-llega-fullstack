@@ -1,0 +1,7 @@
+<RecuperarParadasCompletoPorLinea xmlns="http://clsw.smartmovepro.net/">
+  <usuario>__user__</usuario>
+  <clave>__password__</clave>
+  <codigoLineaParada>__line__code__</codigoLineaParada>
+  <isSublinea>false</isSublinea>
+  <isInteligente>false</isInteligente>
+</RecuperarParadasCompletoPorLinea>

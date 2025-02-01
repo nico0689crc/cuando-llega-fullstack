@@ -1,0 +1,54 @@
+services:
+  ##################################################################################
+  #   Setup Database Container
+  ##################################################################################
+
+  cuando-llega-database:
+    container_name: cuando-llega-database-dev
+    image: postgres:14.3
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - "${POSTGRES_HOST_PORT}:${POSTGRES_CONTAINER_PORT}"
+    volumes:
+      - cuando-llega-dev-db:/var/lib/postgresql/data
+    networks:
+      - cuando-llega-network-dev
+
+  ##################################################################################
+  #   Setup Backend Container
+  ##################################################################################
+
+  cuando-llega-backend:
+    depends_on:
+      - cuando-llega-database
+    container_name: cuando-llega-backend-dev
+    image: ${DOCKER_HUB_USERNAME}/${DOCKER_HUB_CUANDO_LLEGA_BACKEND_IMAGE}:dev
+    build:
+      context: ./backend
+      target: development
+    environment:
+      - CONTAINER_PORT=${CUANDO_LLEGA_BACKEND_CONTAINER_PORT}
+      - HOST_PORT=${CUANDO_LLEGA_BACKEND_HOST_PORT}
+      - POSTGRES_CONTAINER_PORT=${POSTGRES_CONTAINER_PORT}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - "${CUANDO_LLEGA_BACKEND_HOST_PORT}:${CUANDO_LLEGA_BACKEND_CONTAINER_PORT}"
+    expose:
+      - 3000
+    volumes:
+      - type: bind
+        source: ./backend
+        target: /app
+      - /app/node_modules
+    networks:
+      - cuando-llega-network-dev
+volumes:
+  cuando-llega-dev-db:
+networks:
+  cuando-llega-network-dev:

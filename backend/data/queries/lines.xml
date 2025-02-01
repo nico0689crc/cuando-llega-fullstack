@@ -1,0 +1,8 @@
+<RecuperarLineaPorLocalidad xmlns="http://clsw.smartmovepro.net/">
+	<usuario>__user__</usuario>
+	<clave>__password__</clave>
+	<localidad>CORRIENTES</localidad>
+	<provincia>CORRIENTES</provincia>
+	<pais>ARGENTINA</pais>
+	<isSublinea>false</isSublinea>
+</RecuperarLineaPorLocalidad>

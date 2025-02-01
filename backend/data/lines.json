@@ -1,0 +1,184 @@
+{
+  "data": [
+    {
+      "CodigoLineaParada": "94",
+      "Descripcion": "102A",
+      "CodigoEntidad": "97",
+      "CodigoEmpresa": 358
+    },
+    {
+      "CodigoLineaParada": "97",
+      "Descripcion": "102B",
+      "CodigoEntidad": "97",
+      "CodigoEmpresa": 358
+    },
+    {
+      "CodigoLineaParada": "96",
+      "Descripcion": "102C",
+      "CodigoEntidad": "97",
+      "CodigoEmpresa": 358
+    },
+    {
+      "CodigoLineaParada": "132",
+      "Descripcion": "103A",
+      "CodigoEntidad": "97",
+      "CodigoEmpresa": 358
+    },
+    {
+      "CodigoLineaParada": "133",
+      "Descripcion": "103B",
+      "CodigoEntidad": "97",
+      "CodigoEmpresa": 358
+    },
+    {
+      "CodigoLineaParada": "134",
+      "Descripcion": "103C",
+      "CodigoEntidad": "97",
+      "CodigoEmpresa": 358
+    },
+    {
+      "CodigoLineaParada": "113",
+      "Descripcion": "104A",
+      "CodigoEntidad": "97",
+      "CodigoEmpresa": 358
+    },
+    {
+      "CodigoLineaParada": "115",
+      "Descripcion": "104B",
+      "CodigoEntidad": "97",
+      "CodigoEmpresa": 358
+    },
+    {
+      "CodigoLineaParada": "114",
+      "Descripcion": "104C",
+      "CodigoEntidad": "97",
+      "CodigoEmpresa": 358
+    },
+    {
+      "CodigoLineaParada": "118",
+      "Descripcion": "104D",
+      "CodigoEntidad": "97",
+      "CodigoEmpresa": 358
+    },
+    {
+      "CodigoLineaParada": "346",
+      "Descripcion": "105A",
+      "CodigoEntidad": "97",
+      "CodigoEmpresa": 358
+    },
+    {
+      "CodigoLineaParada": "347",
+      "Descripcion": "105B",
+      "CodigoEntidad": "97",
+      "CodigoEmpresa": 358
+    },
+    {
+      "CodigoLineaParada": "348",
+      "Descripcion": "105C",
+      "CodigoEntidad": "97",
+      "CodigoEmpresa": 358
+    },
+    {
+      "CodigoLineaParada": "350",
+      "Descripcion": "106A",
+      "CodigoEntidad": "97",
+      "CodigoEmpresa": 358
+    },
+    {
+      "CodigoLineaParada": "351",
+      "Descripcion": "106B",
+      "CodigoEntidad": "97",
+      "CodigoEmpresa": 358
+    },
+    {
+      "CodigoLineaParada": "352",
+      "Descripcion": "106C",
+      "CodigoEntidad": "97",
+      "CodigoEmpresa": 358
+    },
+    {
+      "CodigoLineaParada": "356",
+      "Descripcion": "108A",
+      "CodigoEntidad": "97",
+      "CodigoEmpresa": 358
+    },
+    {
+      "CodigoLineaParada": "357",
+      "Descripcion": "108C",
+      "CodigoEntidad": "97",
+      "CodigoEmpresa": 358
+    },
+    {
+      "CodigoLineaParada": "342",
+      "Descripcion": "109A",
+      "CodigoEntidad": "97",
+      "CodigoEmpresa": 358
+    },
+    {
+      "CodigoLineaParada": "353",
+      "Descripcion": "109B",
+      "CodigoEntidad": "97",
+      "CodigoEmpresa": 358
+    },
+    {
+      "CodigoLineaParada": "517",
+      "Descripcion": "904A CAMPUS / NAC",
+      "CodigoEntidad": "97",
+      "CodigoEmpresa": 666
+    },
+    {
+      "CodigoLineaParada": "607",
+      "Descripcion": "904B SARM / NAC",
+      "CodigoEntidad": "97",
+      "CodigoEmpresa": 666
+    },
+    {
+      "CodigoLineaParada": "608",
+      "Descripcion": "904C BQRAS / NAC",
+      "CodigoEntidad": "97",
+      "CodigoEmpresa": 666
+    },
+    {
+      "CodigoLineaParada": "744",
+      "Descripcion": "AEROBUS",
+      "CodigoEntidad": "97",
+      "CodigoEmpresa": 358
+    },
+    {
+      "CodigoLineaParada": "852",
+      "Descripcion": "CHAC CORR /NAC",
+      "CodigoEntidad": "176",
+      "CodigoEmpresa": 266
+    },
+    {
+      "CodigoLineaParada": "853",
+      "Descripcion": "CHAC RES / NAC",
+      "CodigoEntidad": "176",
+      "CodigoEmpresa": 266
+    },
+    {
+      "CodigoLineaParada": "851",
+      "Descripcion": "LINEA 110 / PROV",
+      "CodigoEntidad": "176",
+      "CodigoEmpresa": 266
+    },
+    {
+      "CodigoLineaParada": "854",
+      "Descripcion": "PTO. TIROL / PROV",
+      "CodigoEntidad": "176",
+      "CodigoEmpresa": 266
+    },
+    {
+      "CodigoLineaParada": "433",
+      "Descripcion": "RIACHUELO - ERSA",
+      "CodigoEntidad": "97",
+      "CodigoEmpresa": 358
+    },
+    {
+      "CodigoLineaParada": "705",
+      "Descripcion": "SANTA ANA-INGENIO",
+      "CodigoEntidad": "97",
+      "CodigoEmpresa": 358
+    }
+  ]
+}
