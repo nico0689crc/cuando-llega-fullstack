@@ -2,8 +2,7 @@ import { DataSource } from 'typeorm';
 import { Seeder, SeederFactoryManager } from 'typeorm-extension';
 import * as fs from 'fs';
 import * as path from 'path';
-import { v4 as uuidv4 } from 'uuid';
-import { Line } from 'src/modules/lines/entities/lines.entity';
+import { Line } from 'src/modules/lines/entities/line.entity';
 
 export default class LinesSeeder implements Seeder {
   public async run(
@@ -27,7 +26,6 @@ export default class LinesSeeder implements Seeder {
             CodigoEntidad: entityCode,
             CodigoEmpresa: companyCode,
           }) => ({
-            id: uuidv4(),
             code,
             description,
             entityCode,

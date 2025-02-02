@@ -412,7 +412,7 @@ export default function Map() {
   };
 
   return (
-    <LoadScript googleMapsApiKey="AIzaSyB_2XrRYPlbTXrT2z0kC_InrwRzjpu6FmY">
+    <LoadScript googleMapsApiKey="">
       <GoogleMap
         mapContainerStyle={{ height: '500px', width: '100%' }}
         center={path[0]}

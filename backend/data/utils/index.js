@@ -165,22 +165,21 @@ const createStopsFile = async () => {
     if (line.stops) {
       Object.keys(line.stops).forEach((stopKey) => {
         line.stops[stopKey].forEach((stop) => {
-          const stopCodigo = stop.Codigo;
-          if (!stopMap[stopCodigo]) {
-            stopMap[stopCodigo] = {
-              identificador: stop.Identificador,
-              descripcion: stop.Descripcion,
-              latitud: stop.LatitudParada,
-              longitud: stop.LongitudParada,
+          if (!stopMap[stop.Codigo]) {
+            stopMap[stop.Codigo] = {
+              identificator: stop.Identificador,
+              description: stop.Descripcion,
+              lat: stop.LatitudParada,
+              lng: stop.LongitudParada,
               lines: [],
             };
           }
-          stopMap[stopCodigo].lines.push({
+          stopMap[stop.Codigo].lines.push({
             line_code: line.line_code,
             line_description: line.line_description,
-            abreviatura_bandera: stop.AbreviaturaBandera,
-            abreviatura_ampliada_bandera: stop.AbreviaturaAmpliadaBandera,
-            abreviatura_bandera_git: stop.AbreviaturaBanderaGIT,
+            abbreviation_flag: stop.AbreviaturaBandera,
+            expanded_abbreviation_flag: stop.AbreviaturaAmpliadaBandera,
+            abbreviation_flag_git: stop.AbreviaturaBanderaGIT,
           });
         });
       });

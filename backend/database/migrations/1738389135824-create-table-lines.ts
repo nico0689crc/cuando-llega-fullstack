@@ -7,15 +7,9 @@ export class CreateTableLines1738389135824 implements MigrationInterface {
         name: 'lines',
         columns: [
           {
-            name: 'id',
-            type: 'uuid',
-            isPrimary: true,
-            generationStrategy: 'uuid',
-            isGenerated: true,
-          },
-          {
             name: 'code',
             type: 'varchar',
+            isPrimary: true,
             isNullable: false,
             isUnique: true,
           },
@@ -49,5 +43,7 @@ export class CreateTableLines1738389135824 implements MigrationInterface {
     );
   }
 
-  public async down(queryRunner: QueryRunner): Promise<void> {}
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.dropTable('lines');
+  }
 }
