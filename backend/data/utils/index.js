@@ -164,8 +164,8 @@ const createStopsFile = async () => {
   stopsByLinesParsed.data.forEach((line) => {
     if (line.stops) {
       Object.keys(line.stops).forEach((stopKey) => {
-        if(stopKey.length > 0){
-          line.stops[stopKey].forEach((stop,index) => {
+        if (stopKey.length > 0) {
+          line.stops[stopKey].forEach((stop, index) => {
             if (!stopMap[stop.Codigo]) {
               stopMap[stop.Codigo] = {
                 identificator: stop.Identificador,
@@ -181,7 +181,7 @@ const createStopsFile = async () => {
               abbreviation_flag: stop.AbreviaturaBandera,
               expanded_abbreviation_flag: stop.AbreviaturaAmpliadaBandera,
               abbreviation_flag_git: stopKey,
-              position: index + 1
+              position: index + 1,
             });
           });
         }

@@ -20,9 +20,7 @@ async function bootstrap() {
     }),
   );
 
-  logger.log(
-    `Cuando LLega API running on port ${envs.backendContainerPort}`,
-  );
+  logger.log(`Cuando LLega API running on port ${envs.backendContainerPort}`);
 
   await app.listen(envs.backendContainerPort);
 }

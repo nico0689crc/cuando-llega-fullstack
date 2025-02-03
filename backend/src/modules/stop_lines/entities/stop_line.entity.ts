@@ -1,4 +1,12 @@
-import { Entity, Column, PrimaryColumn, ManyToMany, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryColumn,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
 import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
 import { Core } from 'src/core/entities/core.entity';
 import { Stop } from 'src/modules/stops/entities/stop.entity';
@@ -18,19 +26,39 @@ export class StopLine extends Core {
   @Field(() => String)
   lineCode: string;
 
-  @Column({ type: 'varchar', length: 255, nullable: false, name: 'line_description' })
+  @Column({
+    type: 'varchar',
+    length: 255,
+    nullable: false,
+    name: 'line_description',
+  })
   @Field(() => String)
   lineDescription: string;
 
-  @Column({ type: 'varchar', length: 255, nullable: false, name: 'abbreviation_flag' })
+  @Column({
+    type: 'varchar',
+    length: 255,
+    nullable: false,
+    name: 'abbreviation_flag',
+  })
   @Field(() => String)
   abbreviationFlag: string;
 
-  @Column({ type: 'varchar', length: 255, nullable: false, name: 'expanded_abbreviation_flag' })
+  @Column({
+    type: 'varchar',
+    length: 255,
+    nullable: false,
+    name: 'expanded_abbreviation_flag',
+  })
   @Field(() => String)
   expandedAbbreviationFlag: string;
 
-  @Column({ type: 'varchar', length: 255, nullable: false, name: 'abbreviation_flag_git' })
+  @Column({
+    type: 'varchar',
+    length: 255,
+    nullable: false,
+    name: 'abbreviation_flag_git',
+  })
   @Field(() => String)
   abbreviationFlagGit: string;
 

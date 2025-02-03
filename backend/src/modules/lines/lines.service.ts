@@ -23,7 +23,7 @@ export class LinesService {
         relations: ['stopLines', 'stopLines.stop'],
       });
 
-      lines.forEach(line => {
+      lines.forEach((line) => {
         line.stopLines.sort((a, b) => {
           if (a.abbreviationFlagGit > b.abbreviationFlagGit) return 1;
           if (a.abbreviationFlagGit < b.abbreviationFlagGit) return -1;

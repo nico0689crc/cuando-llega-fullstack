@@ -1,0 +1,10 @@
+<RecuperarProximosArribos xmlns="http://clsw.smartmovepro.net/">
+  <usuario>__user__</usuario>
+  <clave>__password__</clave>
+  <codigoLineaParada>__stop__code__</codigoLineaParada>
+  <identificadorParada>__stop__identifier__</identificadorParada>
+  <codigoAplicacion>24</codigoAplicacion>
+  <localidad>CORRIENTES</localidad>
+  <isSublinea>false</isSublinea>
+  <isSoloAdaptados>false</isSoloAdaptados>
+</RecuperarProximosArribos>

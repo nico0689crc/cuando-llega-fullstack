@@ -19,7 +19,7 @@ export default class LinesStopsSeeder implements Seeder {
       const filePath = path.join(__dirname, '..', '..', 'data', 'stops.json');
       const fileContent = fs.readFileSync(filePath, 'utf-8');
       const { data: stops } = JSON.parse(fileContent);
-      
+
       Object.keys(stops).forEach((key) => {
         stops[key].lines.forEach((line) => {
           stopsLinesArray.push({
@@ -32,14 +32,16 @@ export default class LinesStopsSeeder implements Seeder {
             abbreviationFlagGit: line.abbreviation_flag_git,
             position: line.position,
           });
-        }); 
+        });
       });
-      
+
       await stopLineRepository.save(stopsLinesArray);
 
       console.log('Stops-Lines seeded successfully.');
     } else {
-      console.log(`Skipped seeding. ${stopsLinesCount} stops-lines already exist.`);
+      console.log(
+        `Skipped seeding. ${stopsLinesCount} stops-lines already exist.`,
+      );
     }
   }
 }

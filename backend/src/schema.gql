@@ -31,6 +31,32 @@ type Stop {
   lines: [Line!]
 }
 
+type NextArrivalsResult {
+  line_description: String!
+  flag_description: String!
+  arrival: String!
+  latitude: String!
+  longitude: String!
+  stop_latitude: String!
+  stop_longitude: String!
+  short_flag_description: String!
+  flag_sign_description: String!
+  is_adapted: String!
+  car_identifier: String!
+  driver_identifier: String!
+  schedule_deviation: String!
+  last_gps_date: String!
+  error_message: String!
+  stop_line_code: String!
+  position: String!
+}
+
+type NextArrivalsResponse {
+  message: String
+  statusCode: Int
+  result: [NextArrivalsResult!]
+}
+
 type LinesFindAllResponse {
   totalItems: Int!
   totalPages: Int!
@@ -58,6 +84,5 @@ type LineResponse {
 type Query {
   lines(page: Int = 1, pageSize: Int = 10): LinesResponse!
   line(code: String!): LineResponse!
-  stops: [Stop!]!
-  stop(id: Int!): Stop!
+  next_arrivals(stopIdentifier: String!, lineCode: String!): NextArrivalsResponse!
 }
