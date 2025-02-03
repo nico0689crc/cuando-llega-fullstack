@@ -1,7 +1,8 @@
-import { Entity, Column, PrimaryColumn, ManyToMany } from 'typeorm';
+import { Entity, Column, PrimaryColumn, ManyToMany, OneToMany } from 'typeorm';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Core } from 'src/core/entities/core.entity';
 import { Stop } from 'src/modules/stops/entities/stop.entity';
+import { StopLine } from 'src/modules/stop_lines/entities/stop_line.entity';
 
 @Entity({ name: 'lines' })
 @ObjectType()
@@ -33,6 +34,9 @@ export class Line extends Core {
   companyCode: string;
 
   @ManyToMany(() => Stop, (stop) => stop.lines)
-  @Field(() => [Stop])
   stops: Stop[];
+
+  @OneToMany(() => StopLine, (stopLine) => stopLine.line)
+  @Field(() => [StopLine], { nullable: true })
+  stopLines: StopLine[];
 }

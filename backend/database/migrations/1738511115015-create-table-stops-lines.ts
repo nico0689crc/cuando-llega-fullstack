@@ -51,6 +51,11 @@ export class CreateTableParadasLineas1738511115015
             isNullable: false,
           },
           {
+            name: 'position',
+            type: 'decimal',
+            isNullable: false,
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',

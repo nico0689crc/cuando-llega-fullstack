@@ -1,0 +1,63 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type StopLine {
+  stopCode: String!
+  lineCode: String!
+  lineDescription: String!
+  abbreviationFlag: String!
+  expandedAbbreviationFlag: String!
+  abbreviationFlagGit: String!
+  position: Int!
+  stop: Stop
+  line: Line
+}
+
+type Line {
+  code: ID!
+  description: String!
+  entityCode: String!
+  companyCode: String!
+  stopLines: [StopLine!]
+}
+
+type Stop {
+  code: ID!
+  identificator: String!
+  description: String!
+  lat: String!
+  lng: String!
+  lines: [Line!]
+}
+
+type LinesFindAllResponse {
+  totalItems: Int!
+  totalPages: Int!
+  currentPage: Int!
+  pageSize: Int!
+  data: [Line!]!
+}
+
+type LinesResponse {
+  message: String
+  statusCode: Int
+  result: LinesFindAllResponse
+}
+
+type LineSingleResponse {
+  data: Line!
+}
+
+type LineResponse {
+  message: String
+  statusCode: Int
+  result: LineSingleResponse
+}
+
+type Query {
+  lines(page: Int = 1, pageSize: Int = 10): LinesResponse!
+  line(code: String!): LineResponse!
+  stops: [Stop!]!
+  stop(id: Int!): Stop!
+}

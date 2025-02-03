@@ -26,7 +26,7 @@ export default class StopsSeeder implements Seeder {
         lat: stops[key].lat,
         lng: stops[key].lng
       }));
-
+      
       await stopRepository.save(stopsArray);
 
       console.log('Stops seeded successfully.');

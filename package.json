@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@apollo/server": "^4.11.3",
+    "@nestjs/apollo": "^13.0.2",
+    "@nestjs/graphql": "^13.0.2",
+    "@nestjs/typeorm": "^11.0.0",
+    "graphql": "^16.10.0"
+  }
+}

@@ -30,6 +30,7 @@ export default class LinesStopsSeeder implements Seeder {
             abbreviationFlag: line.abbreviation_flag,
             expandedAbbreviationFlag: line.expanded_abbreviation_flag,
             abbreviationFlagGit: line.abbreviation_flag_git,
+            position: line.position,
           });
         }); 
       });

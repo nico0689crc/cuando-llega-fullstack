@@ -9,20 +9,20 @@ interface EnvVars {
   POSTGRES_PASSWORD: string;
   POSTGRES_HOST_PORT: string;
   POSTGRES_CONTAINER_PORT: string;
-  CUANDO_LLEGA_BACKEND_HOST_PORT: string;
-  CUANDO_LLEGA_BACKEND_CONTAINER_PORT: string;
+  HOST_PORT: string;
+  CONTAINER_PORT: string;
 }
 
 const envsSchema = joi
   .object({
-    CUANDO_LLEGA_BACKEND_POSTGRES_DB: joi.string().required(),
-    CUANDO_LLEGA_BACKEND_POSTGRES_HOST: joi.string().required(),
-    CUANDO_LLEGA_BACKEND_POSTGRES_USER: joi.string().required(),
-    CUANDO_LLEGA_BACKEND_POSTGRES_PASSWORD: joi.string().required(),
-    CUANDO_LLEGA_BACKEND_POSTGRES_HOST_PORT: joi.string().required(),
-    CUANDO_LLEGA_BACKEND_POSTGRES_CONTAINER_PORT: joi.string().required(),
-    CUANDO_LLEGA_BACKEND_HOST_PORT: joi.string().required(),
-    CUANDO_LLEGA_BACKEND_CONTAINER_PORT: joi.string().required(),
+    POSTGRES_DB: joi.string().required(),
+    POSTGRES_HOST: joi.string().required(),
+    POSTGRES_USER: joi.string().required(),
+    POSTGRES_PASSWORD: joi.string().required(),
+    POSTGRES_HOST_PORT: joi.string().required(),
+    POSTGRES_CONTAINER_PORT: joi.string().required(),
+    HOST_PORT: joi.string().required(),
+    CONTAINER_PORT: joi.string().required(),
   })
   .unknown(true);
 
@@ -43,6 +43,6 @@ export const envs = {
   postgresPassword: envVars.POSTGRES_PASSWORD,
   postgresHostPort: envVars.POSTGRES_HOST_PORT,
   postgresContainerPort: envVars.POSTGRES_CONTAINER_PORT,
-  backendHostPort: envVars.CUANDO_LLEGA_BACKEND_HOST_PORT,
-  backendContainerPort: envVars.CUANDO_LLEGA_BACKEND_CONTAINER_PORT,
+  backendHostPort: envVars.HOST_PORT,
+  backendContainerPort: envVars.CONTAINER_PORT,
 };

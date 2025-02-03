@@ -164,24 +164,27 @@ const createStopsFile = async () => {
   stopsByLinesParsed.data.forEach((line) => {
     if (line.stops) {
       Object.keys(line.stops).forEach((stopKey) => {
-        line.stops[stopKey].forEach((stop) => {
-          if (!stopMap[stop.Codigo]) {
-            stopMap[stop.Codigo] = {
-              identificator: stop.Identificador,
-              description: stop.Descripcion,
-              lat: stop.LatitudParada,
-              lng: stop.LongitudParada,
-              lines: [],
-            };
-          }
-          stopMap[stop.Codigo].lines.push({
-            line_code: line.line_code,
-            line_description: line.line_description,
-            abbreviation_flag: stop.AbreviaturaBandera,
-            expanded_abbreviation_flag: stop.AbreviaturaAmpliadaBandera,
-            abbreviation_flag_git: stop.AbreviaturaBanderaGIT,
+        if(stopKey.length > 0){
+          line.stops[stopKey].forEach((stop,index) => {
+            if (!stopMap[stop.Codigo]) {
+              stopMap[stop.Codigo] = {
+                identificator: stop.Identificador,
+                description: stop.Descripcion,
+                lat: stop.LatitudParada,
+                lng: stop.LongitudParada,
+                lines: [],
+              };
+            }
+            stopMap[stop.Codigo].lines.push({
+              line_code: line.line_code,
+              line_description: line.line_description,
+              abbreviation_flag: stop.AbreviaturaBandera,
+              expanded_abbreviation_flag: stop.AbreviaturaAmpliadaBandera,
+              abbreviation_flag_git: stopKey,
+              position: index + 1
+            });
           });
-        });
+        }
       });
     }
   });
