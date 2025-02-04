@@ -9,7 +9,6 @@ export class NearestStopsResultResponse extends FindAllResponse {
   data: Stop[];
 }
 
-
 @ObjectType()
 export class NearestStopsResponse extends MessageEntityResponse {
   @Field(() => NearestStopsResultResponse, { nullable: true })

@@ -35,19 +35,26 @@ export class StopsService {
     radius: number,
   ): Promise<NearestStopsResponse> {
     try {
-      const [stops, totalItems] = await this.stopsRepository.createQueryBuilder('stops')
-        .addSelect(`
+      const [stops, totalItems] = await this.stopsRepository
+        .createQueryBuilder('stops')
+        .addSelect(
+          `
           (6371 * acos(
         cos(:latitude * pi() / 180) * cos(stops.lat::double precision * pi() / 180) * cos(stops.lng::double precision * pi() / 180 - :longitude * pi() / 180) + 
         sin(:latitude * pi() / 180) * sin(stops.lat::double precision * pi() / 180)
-          ))`, 'distance')
+          ))`,
+          'distance',
+        )
         .leftJoinAndSelect('stops.lines', 'line')
-        .where(`
+        .where(
+          `
           (6371 * acos(
         cos(:latitude * pi() / 180) * cos(stops.lat::double precision * pi() / 180) * cos(stops.lng::double precision * pi() / 180 - :longitude * pi() / 180) + 
         sin(:latitude * pi() / 180) * sin(stops.lat::double precision * pi() / 180)
           )) <= :radius
-        `, { latitude, longitude, radius })
+        `,
+          { latitude, longitude, radius },
+        )
         .orderBy('distance')
         .skip((page - 1) * pageSize)
         .take(pageSize)
@@ -57,7 +64,7 @@ export class StopsService {
         message: 'Nearest stops fetched successfully',
         result: {
           data: stops,
-          totalItems: stops.length,
+          totalItems,
           totalPages: Math.ceil(stops.length / pageSize),
           currentPage: page,
           pageSize: pageSize,

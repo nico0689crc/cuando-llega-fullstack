@@ -1,13 +1,11 @@
 import {
   Entity,
   Column,
-  PrimaryColumn,
-  ManyToMany,
   PrimaryGeneratedColumn,
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Core } from 'src/core/entities/core.entity';
 import { Stop } from 'src/modules/stops/entities/stop.entity';
 import { Line } from 'src/modules/lines/entities/line.entity';

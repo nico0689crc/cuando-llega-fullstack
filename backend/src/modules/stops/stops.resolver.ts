@@ -27,6 +27,12 @@ export class StopsResolver {
     @Args('radius', { type: () => Number, nullable: true, defaultValue: 1 })
     radius?: number,
   ) {
-    return this.stopsService.findNearestStops(page, pageSize, latitude, longitude, radius);
+    return this.stopsService.findNearestStops(
+      page,
+      pageSize,
+      latitude,
+      longitude,
+      radius,
+    );
   }
 }

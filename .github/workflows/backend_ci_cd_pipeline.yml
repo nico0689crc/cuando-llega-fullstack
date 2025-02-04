@@ -1,0 +1,138 @@
+name: backend_ci_cd_pipeline
+on:
+  push:
+    branches:
+      - "main"
+    paths:
+      - "backend/**"
+  pull_request:
+    branches:
+      - "main"
+    paths:
+      - "backend/**"
+  workflow_dispatch:
+env:
+  #########################################
+  #   GENERAL
+  #########################################
+  SHH_USER_PASSWORD: ${{secrets.SHH_USER_PASSWORD}}
+  DOCKER_HUB_USERNAME: ${{secrets.DOCKER_HUB_USERNAME}}
+  DOCKER_HUB_PASSWORD: ${{secrets.DOCKER_HUB_PASSWORD}}
+  DOCKER_IMAGE: ${{secrets.DOCKER_HUB_USERNAME}}/${{secrets.DOCKER_HUB_APP_IMAGE}}
+  
+  #########################################
+  #   ENVIRONMENT
+  #########################################
+  DOCKER_IMAGE_VERSION_BACKEND: ${{secrets.DOCKER_IMAGE_VERSION_BACKEND}}
+  DOCKER_NETWORK_NAME: ${{secrets.DOCKER_NETWORK_NAME}}
+  DOCKER_VOLUME_NAME: ${{secrets.DOCKER_VOLUME_NAME}}
+  DOCKER_DATABASE_CONTAINER_NAME: ${{secrets.DOCKER_DATABASE_CONTAINER_NAME}}
+  DOCKER_BACKEND_CONTAINER_NAME: ${{secrets.DOCKER_BACKEND_CONTAINER_NAME}}
+  DOCKER_FRONTEND_CONTAINER_NAME: ${{secrets.DOCKER_FRONTEND_CONTAINER_NAME}}
+  POSTGRES_HOST: ${{secrets.DOCKER_DATABASE_CONTAINER_NAME}}
+  POSTGRES_PORT: ${{secrets.POSTGRES_PORT}}
+  POSTGRES_CONTAINER_PORT: ${{secrets.POSTGRES_CONTAINER_PORT}}
+  POSTGRES_DATABASE: ${{secrets.POSTGRES_DATABASE}}
+  POSTGRES_USER: ${{secrets.POSTGRES_USER}}
+  POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
+  POSTGRES_ROOT_PASSWORD: ${{secrets.POSTGRES_ROOT_PASSWORD}}
+  BACKEND_HOST_PORT: ${{secrets.BACKEND_HOST_PORT}}
+  BACKEND_CONTAINER_PORT: ${{secrets.BACKEND_CONTAINER_PORT}}
+  WS_USER: ${{secrets.WS_USER}}
+  WS_PASSWORD: ${{secrets.WS_PASSWORD}}
+  WS_URL: ${{secrets.WS_URL}}
+  WS_PORT: ${{secrets.WS_PORT}}
+jobs:
+  retrieve-environment-variable:
+    uses: ./.github/workflows/retrieve_environment.yml
+  build-test-push-docker-image:
+    name: Build, Test and Push Docker Image
+    needs: retrieve-environment-variable
+    runs-on: ubuntu-latest
+    environment: ${{needs.retrieve-environment-variable.outputs.environment_name}}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Build Docker Image
+        run: docker build -t ${{env.DOCKER_IMAGE}}:${{env.DOCKER_IMAGE_VERSION_BACKEND}} --target=build ./backend
+
+      - name: Run Prettier
+        run: docker run ${{env.DOCKER_IMAGE}}:${{env.DOCKER_IMAGE_VERSION_BACKEND}} sh -c 'npm run format:verify'
+
+      - name: Run ESLint
+        run: docker run ${{env.DOCKER_IMAGE}}:${{env.DOCKER_IMAGE_VERSION_BACKEND}} sh -c 'npm run lint'
+
+      # - name: Run Tests
+      #   run: docker run ${{env.DOCKER_IMAGE}}:${{env.DOCKER_IMAGE_VERSION_BACKEND}} sh -c 'npm run test'
+
+      - name: Build Docker Image Production
+        run: docker build -t ${{env.DOCKER_IMAGE}}:${{env.DOCKER_IMAGE_VERSION_BACKEND}} ./backend
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{env.DOCKER_HUB_USERNAME}}
+          password: ${{env.DOCKER_HUB_PASSWORD}}
+
+      - name: Push to Dockerhub
+        run: docker push ${{env.DOCKER_IMAGE}}:${{env.DOCKER_IMAGE_VERSION_BACKEND}}
+
+  build-database:
+    name: Build Database Container
+    runs-on: self-hosted
+    needs: [build-test-push-docker-image, retrieve-environment-variable]
+    environment: ${{needs.retrieve-environment-variable.outputs.environment_name}}
+    steps:
+      - name: Network Creation
+        run: echo ${{env.SHH_USER_PASSWORD}} | sudo -S docker network create ${{env.DOCKER_NETWORK_NAME}} || true
+
+      - name: Stop Current Running Container
+        run: echo ${{env.SHH_USER_PASSWORD}} | sudo -S docker stop ${{env.DOCKER_DATABASE_CONTAINER_NAME}} || true
+
+      - name: Run Docker Container
+        run: |
+          echo ${{env.SHH_USER_PASSWORD}} | sudo -S docker run --rm -d \
+            -e POSTGRES_DATABASE=${{env.POSTGRES_DATABASE}} \
+            -e POSTGRES_USER=${{env.POSTGRES_USER}} \
+            -e POSTGRES_PASSWORD=${{env.POSTGRES_PASSWORD}} \
+            -e POSTGRES_ROOT_PASSWORD=${{env.POSTGRES_ROOT_PASSWORD}} \
+            --name ${{env.DOCKER_DATABASE_CONTAINER_NAME}} \
+            -v ${{env.DOCKER_VOLUME_NAME}}:/var/lib/mysql \
+            --network ${{env.DOCKER_NETWORK_NAME}} \
+            postgres:14.3
+
+  pull-backend-image-and-run-container:
+    runs-on: self-hosted
+    needs: [build-database, retrieve-environment-variable]
+    environment: ${{needs.retrieve-environment-variable.outputs.environment_name}}
+    steps:
+      - name: Network Creation
+        run: echo ${{env.SHH_USER_PASSWORD}} | sudo -S docker network create ${{env.DOCKER_NETWORK_NAME}} || true
+
+      - name: Stop Current Running Container
+        run: echo ${{env.SHH_USER_PASSWORD}} | sudo -S docker stop ${{env.DOCKER_BACKEND_CONTAINER_NAME}} || true
+
+      - name: Pull Docker Image
+        run: echo ${{env.SHH_USER_PASSWORD}} | sudo -S docker pull ${{env.DOCKER_IMAGE}}:${{env.DOCKER_IMAGE_VERSION_BACKEND}}
+
+      - name: Run Docker Container
+        run: |
+          echo ${{env.SHH_USER_PASSWORD}} | sudo -S docker run --rm -d \
+            -p ${{env.BACKEND_HOST_PORT}}:${{env.BACKEND_CONTAINER_PORT}} \
+            -e CONTAINER_PORT=${{env.BACKEND_CONTAINER_PORT}} \
+            -e HOST_PORT=${{env.BACKEND_HOST_PORT}} \
+            -e POSTGRES_CONTAINER_PORT=${{env.POSTGRES_CONTAINER_PORT}} \
+            -e POSTGRES_HOST_PORT=${{env.POSTGRES_PORT}} \
+            -e POSTGRES_HOST=${{env.POSTGRES_HOST}} \
+            -e POSTGRES_DB=${{env.POSTGRES_DATABASE}} \
+            -e POSTGRES_USER=${{env.POSTGRES_USER}} \
+            -e POSTGRES_PASSWORD=${{env.POSTGRES_PASSWORD}} \
+            -e WS_USER=${{env.WS_USER}} \
+            -e WS_PASSWORD=${{env.WS_PASSWORD}} \
+            -e WS_URL=${{env.WS_URL}} \
+            -e WS_PORT=${{env.WS_PORT}} \
+            --name ${{env.DOCKER_BACKEND_CONTAINER_NAME}} \
+            --network ${{env.DOCKER_NETWORK_NAME}} \
+            ${{env.DOCKER_IMAGE}}:${{env.DOCKER_IMAGE_VERSION_BACKEND}}
