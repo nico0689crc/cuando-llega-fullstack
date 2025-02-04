@@ -29,7 +29,7 @@ import { StopLine } from './modules/stop_lines/entities/stop_line.entity';
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       playground: false,
       introspection: true,
-      plugins: process.env.NODE_ENV !== 'production' ? [ApolloServerPluginLandingPageLocalDefault()] : [],
+      plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
     LinesModule,
     StopsModule,
