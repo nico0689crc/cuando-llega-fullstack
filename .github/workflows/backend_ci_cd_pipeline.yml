@@ -32,7 +32,7 @@ env:
   POSTGRES_HOST: ${{secrets.DOCKER_DATABASE_CONTAINER_NAME}}
   POSTGRES_PORT: ${{secrets.POSTGRES_PORT}}
   POSTGRES_CONTAINER_PORT: ${{secrets.POSTGRES_CONTAINER_PORT}}
-  POSTGRES_DATABASE: ${{secrets.POSTGRES_DATABASE}}
+  POSTGRES_DB: ${{secrets.POSTGRES_DB}}
   POSTGRES_USER: ${{secrets.POSTGRES_USER}}
   POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
   POSTGRES_ROOT_PASSWORD: ${{secrets.POSTGRES_ROOT_PASSWORD}}
@@ -94,7 +94,7 @@ jobs:
       - name: Run Docker Container
         run: |
           echo ${{env.SHH_USER_PASSWORD}} | sudo -S docker run --rm -d \
-            -e POSTGRES_DB=${{env.POSTGRES_DATABASE}} \
+            -e POSTGRES_DB=${{env.POSTGRES_DB}} \
             -e POSTGRES_USER=${{env.POSTGRES_USER}} \
             -e POSTGRES_PASSWORD=${{env.POSTGRES_PASSWORD}} \
             --name ${{env.DOCKER_DATABASE_CONTAINER_NAME}} \
@@ -125,7 +125,7 @@ jobs:
             -e POSTGRES_CONTAINER_PORT=${{env.POSTGRES_CONTAINER_PORT}} \
             -e POSTGRES_HOST_PORT=${{env.POSTGRES_PORT}} \
             -e POSTGRES_HOST=${{env.POSTGRES_HOST}} \
-            -e POSTGRES_DB=${{env.POSTGRES_DATABASE}} \
+            -e POSTGRES_DB=${{env.POSTGRES_DB}} \
             -e POSTGRES_USER=${{env.POSTGRES_USER}} \
             -e POSTGRES_PASSWORD=${{env.POSTGRES_PASSWORD}} \
             -e WS_USER=${{env.WS_USER}} \
