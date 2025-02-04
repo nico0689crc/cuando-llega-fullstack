@@ -94,10 +94,9 @@ jobs:
       - name: Run Docker Container
         run: |
           echo ${{env.SHH_USER_PASSWORD}} | sudo -S docker run --rm -d \
-            -e POSTGRES_DATABASE=${{env.POSTGRES_DATABASE}} \
+            -e POSTGRES_DB=${{env.POSTGRES_DATABASE}} \
             -e POSTGRES_USER=${{env.POSTGRES_USER}} \
             -e POSTGRES_PASSWORD=${{env.POSTGRES_PASSWORD}} \
-            -e POSTGRES_ROOT_PASSWORD=${{env.POSTGRES_ROOT_PASSWORD}} \
             --name ${{env.DOCKER_DATABASE_CONTAINER_NAME}} \
             -v ${{env.DOCKER_VOLUME_NAME}}:/var/lib/mysql \
             --network ${{env.DOCKER_NETWORK_NAME}} \
