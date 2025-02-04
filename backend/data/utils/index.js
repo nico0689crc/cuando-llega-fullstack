@@ -97,7 +97,7 @@ const getLines = async () => {
 
     linesXml = linesXml
       .replace('__user__', process.env.WS_USER)
-      .replace('__password__', process.env.WS_USER_PASSWORD);
+      .replace('__password__', process.env.WS_PASSWORD);
 
     const linesXmlParsed = await parseToObject(linesXml);
 
@@ -132,7 +132,7 @@ const getStopsByLines = async ({ CodigoLineaParada, Descripcion }) => {
 
     linesXml = linesXml
       .replace('__user__', process.env.WS_USER)
-      .replace('__password__', process.env.WS_USER_PASSWORD)
+      .replace('__password__', process.env.WS_PASSWORD)
       .replace('__line__code__', CodigoLineaParada);
 
     const linesXmlParsed = await parseToObject(linesXml);

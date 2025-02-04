@@ -149,7 +149,7 @@ export class StopsService {
           ][0]['RecuperarProximosArribosResult'][0],
         );
 
-        if (arrivals.CodigoEstado === -1) {
+        if (arrivals.CodigoEstado !== 0) {
           resolve({
             message: arrivals.MensajeEstado,
             statusCode: 400,
