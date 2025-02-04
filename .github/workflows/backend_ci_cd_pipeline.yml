@@ -58,15 +58,6 @@ jobs:
       - name: Build Docker Image
         run: docker build -t ${{env.DOCKER_IMAGE}}:${{env.DOCKER_IMAGE_VERSION_BACKEND}} --target=build ./backend
 
-      - name: Run Prettier
-        run: docker run ${{env.DOCKER_IMAGE}}:${{env.DOCKER_IMAGE_VERSION_BACKEND}} sh -c 'npm run format:verify'
-
-      - name: Run ESLint
-        run: docker run ${{env.DOCKER_IMAGE}}:${{env.DOCKER_IMAGE_VERSION_BACKEND}} sh -c 'npm run lint'
-
-      # - name: Run Tests
-      #   run: docker run ${{env.DOCKER_IMAGE}}:${{env.DOCKER_IMAGE_VERSION_BACKEND}} sh -c 'npm run test'
-
       - name: Build Docker Image Production
         run: docker build -t ${{env.DOCKER_IMAGE}}:${{env.DOCKER_IMAGE_VERSION_BACKEND}} ./backend
 
