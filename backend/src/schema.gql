@@ -57,6 +57,20 @@ type NextArrivalsResponse {
   result: [NextArrivalsResult!]
 }
 
+type NearestStopsResultResponse {
+  totalItems: Int!
+  totalPages: Int!
+  currentPage: Int!
+  pageSize: Int!
+  data: [Stop!]!
+}
+
+type NearestStopsResponse {
+  message: String
+  statusCode: Int
+  result: NearestStopsResultResponse
+}
+
 type LinesFindAllResponse {
   totalItems: Int!
   totalPages: Int!
@@ -85,4 +99,5 @@ type Query {
   lines(page: Int = 1, pageSize: Int = 10): LinesResponse!
   line(code: String!): LineResponse!
   next_arrivals(stopIdentifier: String!, lineCode: String!): NextArrivalsResponse!
+  nearest_stops(page: Int = 1, pageSize: Int = 10, latitude: Float!, longitude: Float!, radius: Float = 1): NearestStopsResponse!
 }

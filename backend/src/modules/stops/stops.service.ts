@@ -4,11 +4,18 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NextArrivalsParams } from './interfaces/next-arrivals.inteface';
 import { NextArrivalsResponse } from './dto/responses/next-arrivals-response.dto';
-import { NextArrivalsData } from './types/next-arrivals-data.type';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Stop } from './entities/stop.entity';
+import { NearestStopsResponse } from './dto/responses/nearest-stops-response.dto';
 
 @Injectable()
 export class StopsService {
-  constructor(private configService: ConfigService) {}
+  constructor(
+    private configService: ConfigService,
+    @InjectRepository(Stop)
+    private stopsRepository: Repository<Stop>,
+  ) {}
 
   async nextArrivals({
     stopIdentifier,
@@ -18,6 +25,51 @@ export class StopsService {
       stopIdentifier,
       lineCode,
     });
+  }
+
+  async findNearestStops(
+    page: number,
+    pageSize: number,
+    latitude: number,
+    longitude: number,
+    radius: number,
+  ): Promise<NearestStopsResponse> {
+    try {
+      const [stops, totalItems] = await this.stopsRepository.createQueryBuilder('stops')
+        .addSelect(`
+          (6371 * acos(
+        cos(:latitude * pi() / 180) * cos(stops.lat::double precision * pi() / 180) * cos(stops.lng::double precision * pi() / 180 - :longitude * pi() / 180) + 
+        sin(:latitude * pi() / 180) * sin(stops.lat::double precision * pi() / 180)
+          ))`, 'distance')
+        .leftJoinAndSelect('stops.lines', 'line')
+        .where(`
+          (6371 * acos(
+        cos(:latitude * pi() / 180) * cos(stops.lat::double precision * pi() / 180) * cos(stops.lng::double precision * pi() / 180 - :longitude * pi() / 180) + 
+        sin(:latitude * pi() / 180) * sin(stops.lat::double precision * pi() / 180)
+          )) <= :radius
+        `, { latitude, longitude, radius })
+        .orderBy('distance')
+        .skip((page - 1) * pageSize)
+        .take(pageSize)
+        .getManyAndCount();
+
+      return {
+        message: 'Nearest stops fetched successfully',
+        result: {
+          data: stops,
+          totalItems: stops.length,
+          totalPages: Math.ceil(stops.length / pageSize),
+          currentPage: page,
+          pageSize: pageSize,
+        },
+        statusCode: 200,
+      };
+    } catch (error) {
+      return {
+        message: error.message ?? 'Error fetching nearest stops',
+        statusCode: 500,
+      };
+    }
   }
 
   private async fetchNextArrivals({
