@@ -12,16 +12,23 @@ on:
       - "frontend/**"
   workflow_dispatch:
 env:
+  #########################################
+  #   GENERAL
+  #########################################
   SHH_USER_PASSWORD: ${{secrets.SHH_USER_PASSWORD}}
   DOCKER_HUB_USERNAME: ${{secrets.DOCKER_HUB_USERNAME}}
   DOCKER_HUB_PASSWORD: ${{secrets.DOCKER_HUB_PASSWORD}}
   DOCKER_IMAGE: ${{secrets.DOCKER_HUB_USERNAME}}/${{secrets.DOCKER_HUB_APP_IMAGE}}
+
+  #########################################
+  #   ENVIRONMENT
+  #########################################
   DOCKER_IMAGE_VERSION_FRONTEND: ${{secrets.DOCKER_IMAGE_VERSION_FRONTEND}}
-  BACKEND_HOST_DOMAIN: ${{secrets.BACKEND_HOST_DOMAIN}}
-  FRONTEND_HOST_DOMAIN: ${{secrets.FRONTEND_HOST_DOMAIN}}
   DOCKER_FRONTEND_CONTAINER_NAME: ${{secrets.DOCKER_FRONTEND_CONTAINER_NAME}}
   FRONTEND_HOST_PORT: ${{secrets.FRONTEND_HOST_PORT}}
   FRONTEND_CONTAINER_PORT: ${{secrets.FRONTEND_CONTAINER_PORT}}
+  NEXT_PUBLIC_GOOGLE_MAP_API: ${{secrets.NEXT_PUBLIC_GOOGLE_MAP_API}}
+  NEXT_PUBLIC_GRAPHQL_PATH: ${{secrets.NEXT_PUBLIC_GRAPHQL_PATH}}
 jobs:
   retrieve-environment-variable:
     uses: ./.github/workflows/retrieve_environment.yml
@@ -38,8 +45,8 @@ jobs:
       - name: Build Docker Image Production
         run: |
           docker build -t ${{env.DOCKER_IMAGE}}:${{env.DOCKER_IMAGE_VERSION_FRONTEND}} \
-            --build-arg NEXT_PUBLIC_BACKEND_HOST_DOMAIN=${{env.BACKEND_HOST_DOMAIN}} \
-            --build-arg NEXT_PUBLIC_FRONTEND_HOST_DOMAIN=${{env.FRONTEND_HOST_DOMAIN}} \
+            --build-arg NEXT_PUBLIC_GOOGLE_MAP_API=${{env.NEXT_PUBLIC_GOOGLE_MAP_API}} \
+            --build-arg NEXT_PUBLIC_GRAPHQL_PATH=${{env.NEXT_PUBLIC_GRAPHQL_PATH}} \
             ./frontend
 
       - name: Login to Docker Hub

@@ -41,7 +41,6 @@ services:
       - WS_USER=${WS_USER}
       - WS_PASSWORD=${WS_PASSWORD}
       - WS_URL=${WS_URL}
-      - WS_PORT=${WS_PORT}
     ports:
       - "${CUANDO_LLEGA_BACKEND_HOST_PORT}:${CUANDO_LLEGA_BACKEND_CONTAINER_PORT}"
     expose:
@@ -53,6 +52,29 @@ services:
       - /app/node_modules
     networks:
       - cuando-llega-network-dev
+
+  #########################################
+  #   Setup Frontend container
+  #########################################
+  frontend:
+    depends_on:
+      - cuando-llega-backend
+    container_name: cuando-llega-frontend-dev
+    image: ${DOCKER_HUB_USERNAME}/${DOCKER_HUB_CUANDO_LLEGA_FRONTEND_IMAGE}:dev
+    build:
+      context: ./frontend
+      target: development
+    environment:
+      - NEXT_PUBLIC_GOOGLE_MAP_API=${NEXT_PUBLIC_GOOGLE_MAP_API}
+      - NEXT_PUBLIC_GRAPHQL_PATH=${NEXT_PUBLIC_GRAPHQL_PATH}
+    ports:
+      - "${CUANDO_LLEGA_FRONTEND_HOST_PORT}:${CUANDO_LLEGA_FRONTEND_CONTAINER_PORT}"
+    volumes:
+      - type: bind
+        source: ./frontend
+        target: /app
+      - /app/node_modules
+    command: npm run dev
 volumes:
   cuando-llega-dev-db:
 networks:
