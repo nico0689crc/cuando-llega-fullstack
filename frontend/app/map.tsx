@@ -1,16 +1,16 @@
 'use client';
-import { Circle, GoogleMap, InfoWindow, LoadScript, Marker, Polyline } from '@react-google-maps/api';
-import { useState } from 'react';
+
+import { Circle, GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import {stops} from "./stops"
 
-interface PathType {
-  lat: number;
-  lng: number;
-  description: string;
-}
+// interface PathType {
+//   lat: number;
+//   lng: number;
+//   description: string;
+// }
 
 export default function Map() {
-  const [selectedLocation, setSelectedLocation] = useState<PathType | null>(null);
+  // const [selectedLocation, setSelectedLocation] = useState<PathType | null>(null);
 
   
 
@@ -41,7 +41,7 @@ export default function Map() {
         <Marker
         key={index} position={{ lat: +lat, lng: +lng }} 
         title={description} icon={redMarker} 
-        onClick={() => setSelectedLocation({description, lat: +lat, lng: +lng})} // Abre el popup al hacer clic
+        // onClick={() => setSelectedLocation({description, lat: +lat, lng: +lng})} // Abre el popup al hacer clic
 
         />
       ))}

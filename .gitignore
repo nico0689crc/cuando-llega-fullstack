@@ -1,4 +1,5 @@
 /.env
 /.env.secrets
+/.env.production
 /.env.commands
 ./node_modules

@@ -1,0 +1,81 @@
+services:
+  ##################################################################################
+  #   Setup Database Container
+  ##################################################################################
+
+  cuando-llega-database:
+    container_name: cuando-llega-database-prod
+    image: postgres:14.3
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - "${POSTGRES_HOST_PORT}:${POSTGRES_CONTAINER_PORT}"
+    volumes:
+      - cuando-llega-prod-db:/var/lib/postgresql/data
+    networks:
+      - cuando-llega-network-prod
+
+  ##################################################################################
+  #   Setup Backend Container
+  ##################################################################################
+
+  cuando-llega-backend:
+    depends_on:
+      - cuando-llega-database
+    container_name: cuando-llega-backend-prod
+    image: ${DOCKER_HUB_USERNAME}/${DOCKER_HUB_CUANDO_LLEGA_BACKEND_IMAGE}:prod
+    build:
+      context: ./backend
+      target: production
+    environment:
+      - CONTAINER_PORT=${CUANDO_LLEGA_BACKEND_CONTAINER_PORT}
+      - HOST_PORT=${CUANDO_LLEGA_BACKEND_HOST_PORT}
+      - POSTGRES_CONTAINER_PORT=${POSTGRES_CONTAINER_PORT}
+      - POSTGRES_HOST_PORT=${POSTGRES_HOST_PORT}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - WS_USER=${WS_USER}
+      - WS_PASSWORD=${WS_PASSWORD}
+      - WS_URL=${WS_URL}
+    ports:
+      - "${CUANDO_LLEGA_BACKEND_HOST_PORT}:${CUANDO_LLEGA_BACKEND_CONTAINER_PORT}"
+    expose:
+      - 3000
+    volumes:
+      - type: bind
+        source: ./backend
+        target: /app
+      - /app/node_modules
+    networks:
+      - cuando-llega-network-prod
+
+  #########################################
+  #   Setup Frontend container
+  #########################################
+  frontend:
+    depends_on:
+      - cuando-llega-backend
+    container_name: cuando-llega-frontend-prod
+    image: ${DOCKER_HUB_USERNAME}/${DOCKER_HUB_CUANDO_LLEGA_FRONTEND_IMAGE}:prod
+    build:
+      context: ./frontend
+      target: production
+      args:
+        - NEXT_PUBLIC_GOOGLE_MAP_API=${NEXT_PUBLIC_GOOGLE_MAP_API}
+        - NEXT_PUBLIC_GRAPHQL_PATH=${NEXT_PUBLIC_GRAPHQL_PATH}
+    ports:
+      - "${CUANDO_LLEGA_FRONTEND_HOST_PORT}:${CUANDO_LLEGA_FRONTEND_CONTAINER_PORT}"
+    volumes:
+      - type: bind
+        source: ./frontend
+        target: /app
+      - /app/node_modules
+    command: npm run prod
+volumes:
+  cuando-llega-prod-db:
+networks:
+  cuando-llega-network-prod:
