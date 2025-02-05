@@ -56,7 +56,7 @@ services:
   #########################################
   #   Setup Frontend container
   #########################################
-  frontend:
+  cuando-llega-frontend:
     depends_on:
       - cuando-llega-backend
     container_name: cuando-llega-frontend-prod
@@ -69,12 +69,6 @@ services:
         - NEXT_PUBLIC_GRAPHQL_PATH=${NEXT_PUBLIC_GRAPHQL_PATH}
     ports:
       - "${CUANDO_LLEGA_FRONTEND_HOST_PORT}:${CUANDO_LLEGA_FRONTEND_CONTAINER_PORT}"
-    volumes:
-      - type: bind
-        source: ./frontend
-        target: /app
-      - /app/node_modules
-    command: npm run prod
 volumes:
   cuando-llega-prod-db:
 networks:
