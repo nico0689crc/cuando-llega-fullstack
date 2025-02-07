@@ -25,11 +25,12 @@ import '@/app/globals.css'
 
 // Generated Icon CSS Imports
 import '@assets/iconify-icons/generated-icons.css'
+import { Container } from '@mui/material'
 
 export const metadata = {
-  title: 'Materio - Material Design Next.js Admin Template',
+  title: 'Cuando Llega Corrientes App',
   description:
-    'Materio - Material Design Next.js Admin Dashboard Template - is the most developer friendly & highly customizable Admin Dashboard Template based on MUI v5.'
+    'Cuando Llega Corrientes App es una aplicación que te permite saber en tiempo real la ubicación de los colectivos de la ciudad de Corrientes.',
 }
 
 const Layout = async ({ children }: ChildrenType) => {
@@ -44,15 +45,17 @@ const Layout = async ({ children }: ChildrenType) => {
           <BlankLayout systemMode={systemMode}>
             <IntersectionProvider>
               <FrontLayout>
-                {children}
-                <ScrollToTop className='mui-fixed'>
-                  <Button
-                    variant='contained'
-                    className='is-10 bs-10 rounded-full p-0 min-is-0 flex items-center justify-center'
-                  >
-                    <i className='ri-arrow-up-line' />
-                  </Button>
-                </ScrollToTop>
+                <Container maxWidth='md' className='flex-auto flex flex-col'>
+                  {children}
+                  <ScrollToTop className='mui-fixed'>
+                    <Button
+                      variant='contained'
+                      className='is-10 bs-10 rounded-full p-0 min-is-0 flex items-center justify-center'
+                    >
+                      <i className='ri-arrow-up-line' />
+                    </Button>
+                  </ScrollToTop>
+                </Container>
               </FrontLayout>
             </IntersectionProvider>
           </BlankLayout>

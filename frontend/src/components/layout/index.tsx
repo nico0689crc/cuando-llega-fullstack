@@ -10,12 +10,15 @@ import { getServerMode } from '@core/utils/serverHelpers'
 // Util Imports
 import { frontLayoutClasses } from '@layouts/utils/layoutClasses'
 
+// Third-party Imports
+import classNames from 'classnames'
+
 const FrontLayout = async ({ children }: ChildrenType) => {
   // Vars
   const mode = await getServerMode()
 
   return (
-    <div className={frontLayoutClasses.root}>
+    <div className={classNames(frontLayoutClasses.root, 'flex flex-col min-h-screen')}>
       <Header mode={mode} />
       {children}
     </div>

@@ -54,10 +54,10 @@ export type Config = {
 }
 
 const themeConfig: Config = {
-  templateName: 'Materio',
-  homePageUrl: '/dashboards/crm',
-  settingsCookieName: 'materio-mui-next-demo-1',
-  mode: 'light', // 'system', 'light', 'dark'
+  templateName: 'Cuando Llega Corrientes App',
+  homePageUrl: '/',
+  settingsCookieName: 'cuando-llega-settings',
+  mode: 'system', // 'system', 'light', 'dark'
   skin: 'default', // 'default', 'bordered'
   semiDark: false, // true, false
   layout: 'vertical', // 'vertical', 'collapsed', 'horizontal'
@@ -70,7 +70,7 @@ const themeConfig: Config = {
     detached: true, //! true, false (This will not work in the Horizontal Layout or floating navbar is enabled)
     blur: true // true, false
   },
-  contentWidth: 'compact', // 'compact', 'wide'
+  contentWidth: 'wide', // 'compact', 'wide'
   footer: {
     type: 'static', // 'fixed', 'static'
     contentWidth: 'compact', // 'compact', 'wide'
