@@ -60,13 +60,7 @@ const ModeDropdown = () => {
   return (
     <>
       <Tooltip
-        title={
-          settings.mode === 'dark'
-        ? 'Modo Oscuro'
-        : settings.mode === 'light'
-        ? 'Modo Claro'
-        : 'Modo Sistema'
-        }
+        title={settings.mode === 'dark' ? 'Modo Oscuro' : settings.mode === 'light' ? 'Modo Claro' : 'Modo Sistema'}
         onOpen={() => setTooltipOpen(true)}
         onClose={() => setTooltipOpen(false)}
         open={open ? false : tooltipOpen ? true : false}

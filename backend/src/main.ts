@@ -9,7 +9,10 @@ async function bootstrap() {
 
   const app = await NestFactory.create(AppModule);
 
-  app.enableCors();
+  app.enableCors({
+    origin: ['http://localhost:6500', 'http://localhost:5600', 'https://cuandollega.nicolasfernandez.tech'], // Permitir solo este origen
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+  });
 
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
 

@@ -8,6 +8,8 @@ import ThemeProvider from '@components/theme'
 
 // Util Imports
 import { getMode, getSettingsFromCookie, getSystemMode } from '@core/utils/serverHelpers'
+import { ApolloWrapper } from '@/queries/client'
+import { LinesStopsProvider } from '@/contexts/lines-stops-context/LinesStopsContext'
 
 type Props = ChildrenType & {
   direction: Direction
@@ -23,13 +25,15 @@ const Providers = async (props: Props) => {
   const systemMode = await getSystemMode()
 
   return (
-      <VerticalNavProvider>
-        <SettingsProvider settingsCookie={settingsCookie} mode={mode}>
-          <ThemeProvider direction={direction} systemMode={systemMode}>
-            {children}
-          </ThemeProvider>
-        </SettingsProvider>
-      </VerticalNavProvider>
+    <VerticalNavProvider>
+      <SettingsProvider settingsCookie={settingsCookie} mode={mode}>
+        <ThemeProvider direction={direction} systemMode={systemMode}>
+          <ApolloWrapper>
+            <LinesStopsProvider>{children}</LinesStopsProvider>
+          </ApolloWrapper>
+        </ThemeProvider>
+      </SettingsProvider>
+    </VerticalNavProvider>
   )
 }
 

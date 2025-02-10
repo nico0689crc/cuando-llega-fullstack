@@ -18,7 +18,7 @@ const FrontLayout = async ({ children }: ChildrenType) => {
   const mode = await getServerMode()
 
   return (
-    <div className={classNames(frontLayoutClasses.root, 'flex flex-col min-h-screen')}>
+    <div className={classNames(frontLayoutClasses.root, 'flex flex-col min-h-screen mb-10')}>
       <Header mode={mode} />
       {children}
     </div>

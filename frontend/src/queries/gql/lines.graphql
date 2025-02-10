@@ -1,0 +1,35 @@
+query Lines (
+	$page: Int
+	$pageSize: Int
+) {
+	lines(page: $page, pageSize: $pageSize) {
+		message
+		statusCode
+		result {
+			totalItems
+			totalPages
+			currentPage
+			pageSize
+			data {
+				code
+				description
+				stopLines {
+					stopCode
+					lineCode
+					lineDescription
+					abbreviationFlag
+					expandedAbbreviationFlag
+					abbreviationFlagGit
+					position
+					stop {
+						description
+						lat
+						lng
+						identificator
+						code
+					}
+				}
+			}
+		}
+	}
+}

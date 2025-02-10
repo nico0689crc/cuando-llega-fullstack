@@ -1,12 +1,7 @@
-import HomePageWrapper from '@/views'
-import { getServerMode } from '@core/utils/serverHelpers'
+import HomePageWrapper from '@/views/home'
 
 const HomePage = async () => {
-  const mode = await getServerMode()
-
-  return (
-    <HomePageWrapper mode={mode} />
-  )
+  return <HomePageWrapper />
 }
 
 export default HomePage

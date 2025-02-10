@@ -30,7 +30,7 @@ import { Container } from '@mui/material'
 export const metadata = {
   title: 'Cuando Llega Corrientes App',
   description:
-    'Cuando Llega Corrientes App es una aplicación que te permite saber en tiempo real la ubicación de los colectivos de la ciudad de Corrientes.',
+    'Cuando Llega Corrientes App es una aplicación que te permite saber en tiempo real la ubicación de los colectivos de la ciudad de Corrientes.'
 }
 
 const Layout = async ({ children }: ChildrenType) => {
