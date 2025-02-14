@@ -24,6 +24,7 @@
     "@mui/material-nextjs": "6.2.1",
     "@react-google-maps/api": "^2.20.5",
     "classnames": "2.5.1",
+    "dotenv": "^16.4.7",
     "framer-motion": "^12.4.1",
     "next": "15.1.6",
     "react": "^19.0.0",

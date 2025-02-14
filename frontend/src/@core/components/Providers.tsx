@@ -1,0 +1,40 @@
+// Type Imports
+import type { ChildrenType, Direction } from '@core/types'
+
+// Context Imports
+import { VerticalNavProvider } from '@menu/contexts/verticalNavContext'
+import { SettingsProvider } from '@core/contexts/settingsContext'
+import ThemeProvider from '@core/components/theme'
+
+// Util Imports
+import { getMode, getSettingsFromCookie, getSystemMode } from '@core/utils/serverHelpers'
+import { ApolloWrapper } from '@/queries/client'
+import { LinesStopsProvider } from '@core/components/contexts/lines-stops-context/LinesStopsContext'
+
+type Props = ChildrenType & {
+  direction: Direction
+}
+
+const Providers = async (props: Props) => {
+  // Props
+  const { children, direction } = props
+
+  // Vars
+  const mode = await getMode()
+  const settingsCookie = await getSettingsFromCookie()
+  const systemMode = await getSystemMode()
+
+  return (
+    <VerticalNavProvider>
+      <SettingsProvider settingsCookie={settingsCookie} mode={mode}>
+        <ThemeProvider direction={direction} systemMode={systemMode}>
+          <ApolloWrapper>
+            <LinesStopsProvider>{children}</LinesStopsProvider>
+          </ApolloWrapper>
+        </ThemeProvider>
+      </SettingsProvider>
+    </VerticalNavProvider>
+  )
+}
+
+export default Providers

@@ -1,3 +1,4 @@
+
 // Next Imports
 import { cookies } from 'next/headers'
 
@@ -9,7 +10,7 @@ import type { Settings } from '@core/contexts/settingsContext'
 import type { SystemMode } from '@core/types'
 
 // Config Imports
-import themeConfig from '@configs/themeConfig'
+import themeConfig from '@core/configs/themeConfig'
 
 export const getSettingsFromCookie = async (): Promise<Settings> => {
   const cookieStore = await cookies()

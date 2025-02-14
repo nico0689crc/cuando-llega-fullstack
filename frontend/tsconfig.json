@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "target": "ESNext",
     "downlevelIteration": true,
     "lib": [
@@ -44,7 +45,7 @@
         "./src/components/*"
       ],
       "@configs/*": [
-        "./src/configs/*"
+        "./src/@core/configs/*"
       ],
       "@views/*": [
         "./src/views/*"

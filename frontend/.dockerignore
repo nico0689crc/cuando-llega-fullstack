@@ -1,20 +1,14 @@
-# Versioning and metadata
-.git
-.gitignore
-.dockerignore
-
-# Build dependencies
-node_modules
-.next
-
-# Environment (contains sensitive data)
+node_modules/
+.git/
 .env
-
-# Files not required for production
+.next/
+*.log
+.gitignore
+*.tsbuildinfo
+.vscode/
 Dockerfile
-README.md
+*.md
 
 # graphql-let
-__generated__
 *.graphql.d.ts
 *.graphqls.d.ts

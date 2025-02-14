@@ -1,5 +1,4 @@
 // MUI Imports
-import Button from '@mui/material/Button'
 import InitColorSchemeScript from '@mui/material/InitColorSchemeScript'
 
 // Third-party Imports
@@ -9,23 +8,21 @@ import 'react-perfect-scrollbar/dist/css/styles.css'
 import type { ChildrenType } from '@core/types'
 
 // Context Imports
-import { IntersectionProvider } from '@/contexts/intersectionContext'
+import { IntersectionProvider } from '@core/components/contexts/intersectionContext'
 
 // Component Imports
-import Providers from '@components/Providers'
+import Providers from '@core/components/Providers'
 import BlankLayout from '@layouts/BlankLayout'
-import FrontLayout from '@components/layout'
-import ScrollToTop from '@core/components/scroll-to-top'
+import FrontLayout from '@core/components/layout'
 
 // Util Imports
-import { getSystemMode } from '@/@core/utils/serverHelpers'
+import { getSystemMode } from '@core/utils/serverHelpers'
 
 // Style Imports
 import '@/app/globals.css'
 
 // Generated Icon CSS Imports
 import '@assets/iconify-icons/generated-icons.css'
-import { Container } from '@mui/material'
 
 export const metadata = {
   title: 'Cuando Llega Corrientes App',
@@ -44,19 +41,7 @@ const Layout = async ({ children }: ChildrenType) => {
         <Providers direction='ltr'>
           <BlankLayout systemMode={systemMode}>
             <IntersectionProvider>
-              <FrontLayout>
-                <Container maxWidth='md' className='flex-auto flex flex-col'>
-                  {children}
-                  <ScrollToTop className='mui-fixed'>
-                    <Button
-                      variant='contained'
-                      className='is-10 bs-10 rounded-full p-0 min-is-0 flex items-center justify-center'
-                    >
-                      <i className='ri-arrow-up-line' />
-                    </Button>
-                  </ScrollToTop>
-                </Container>
-              </FrontLayout>
+              <FrontLayout>{children}</FrontLayout>
             </IntersectionProvider>
           </BlankLayout>
         </Providers>

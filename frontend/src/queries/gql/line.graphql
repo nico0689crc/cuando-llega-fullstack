@@ -1,0 +1,32 @@
+query Line(
+  $code: String!
+) {
+    line(code: $code) {
+        message
+        statusCode
+        result {
+            data {
+                code
+                description
+                entityCode
+                companyCode
+                stopLines {
+                    stopCode
+                    lineCode
+                    lineDescription
+                    abbreviationFlag
+                    expandedAbbreviationFlag
+                    abbreviationFlagGit
+                    position
+                    stop {
+                        code
+                        identificator
+                        description
+                        lat
+                        lng
+                    }
+                }
+            }
+        }
+    }
+}
