@@ -17,20 +17,20 @@ const ParadasLineaPage = async ({ params }: ParadasLineaPageProps) => {
     const line = await fetchLine({ code })
     return <ParadasLineaView data={line} />
   } catch (error) {
-    return notFound()
+    throw new Error('Error fetching line' + error)
   }
 }
 
-export async function generateStaticParams() {
-  const {
-    lines: { result }
-  } = await fetchLines()
+// export async function generateStaticParams() {
+//   const {
+//     lines: { result }
+//   } = await fetchLines()
 
-  return (
-    result?.data?.map((line) => ({
-      params: { code: line.code }
-    })) || []
-  ) 
-}
+//   return (
+//     result?.data?.map((line) => ({
+//       params: { code: line.code }
+//     })) || []
+//   ) 
+// }
 
 export default ParadasLineaPage

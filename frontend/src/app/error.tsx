@@ -10,7 +10,7 @@ type ErrorProps = {
 
 export default function ErrorPage({ error, reset }: ErrorProps) {
   return (
-    <Stack sx={{ textAlign: 'center', justifyContent: 'center', mt: 4 }}>
+    <Stack sx={{ textAlign: 'center', justifyContent: 'center', alignItems: 'center', mt: 4 }}>
       <Typography variant='h1' color='error'>
         ¡Ups!
       </Typography>
@@ -20,7 +20,7 @@ export default function ErrorPage({ error, reset }: ErrorProps) {
       <Typography variant='body1' color='text.secondary' paragraph>
         Parece que hubo un problema en la aplicación. Intenta refrescar la página o regresar al inicio.
       </Typography>
-      <Stack direction={'column'}>
+      <Stack direction={'row'} spacing={2}>
         <Button variant='contained' color='primary' onClick={reset} sx={{ mt: 2 }}>
           Reintentar
         </Button>

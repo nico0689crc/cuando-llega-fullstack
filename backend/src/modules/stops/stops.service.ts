@@ -8,6 +8,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Stop } from './entities/stop.entity';
 import { NearestStopsResponse } from './dto/responses/nearest-stops-response.dto';
+import { Line } from '../lines/entities/line.entity';
 
 @Injectable()
 export class StopsService {
@@ -15,16 +16,38 @@ export class StopsService {
     private configService: ConfigService,
     @InjectRepository(Stop)
     private stopsRepository: Repository<Stop>,
+    @InjectRepository(Line)
+    private lineRepository: Repository<Line>,
   ) {}
 
   async nextArrivals({
     stopIdentifier,
     lineCode,
   }: NextArrivalsParams): Promise<NextArrivalsResponse> {
-    return await this.fetchNextArrivals({
+    const response = await this.fetchNextArrivals({
       stopIdentifier,
       lineCode,
     });
+    const stop = await this.stopsRepository.findOne({where: {identificator: stopIdentifier}});
+    const line = await this.lineRepository.findOne({where: {code: lineCode}});
+
+    return {
+      statusCode: response.statusCode,
+      message: response.message,
+      result: {
+        data: response.result as Array<any>,
+        stop: {
+          description: stop.description,
+          lat: stop.lat,
+          lng: stop.lng,
+          identificator: stop.identificator,
+        },
+        line: {
+          lineDescription: line.description,
+          code: line.code,
+        }
+      },
+    }
   }
 
   async findNearestStops(

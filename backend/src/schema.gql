@@ -31,7 +31,7 @@ type Stop {
   lines: [Line!]
 }
 
-type NextArrivalsResult {
+type DataNextArrivalsResponse {
   line_description: String!
   flag_description: String!
   arrival: String!
@@ -51,10 +51,28 @@ type NextArrivalsResult {
   position: String!
 }
 
+type StopNextArrivalsResponse {
+  description: String!
+  lat: String!
+  lng: String!
+  identificator: String!
+}
+
+type LineaNextArrivalsResponse {
+  lineDescription: String!
+  code: String!
+}
+
+type NextArrivalsResult {
+  stop: StopNextArrivalsResponse
+  line: LineaNextArrivalsResponse
+  data: [DataNextArrivalsResponse!]
+}
+
 type NextArrivalsResponse {
   message: String
   statusCode: Int
-  result: [NextArrivalsResult!]
+  result: NextArrivalsResult
 }
 
 type NearestStopsResultResponse {

@@ -8,10 +8,9 @@ import Link from '@mui/material/Link'
 
 type NextArrivalsViewProps = {
   data: NextArrivalsResponse
-  lineCode: string
 }
 
-const NextArrivalsView = ({ data, lineCode }: NextArrivalsViewProps) => {
+const NextArrivalsView = ({ data }: NextArrivalsViewProps) => {
   return (
     <Stack direction='column' spacing={2} alignItems='flex-start' justifyContent='flex-start'>
       <Stack direction='row' justifyContent='space-between' alignItems='center' width='100%'>
@@ -19,19 +18,23 @@ const NextArrivalsView = ({ data, lineCode }: NextArrivalsViewProps) => {
           variant='text'
           startIcon={<i className='ri-arrow-left-s-line' />}
           LinkComponent={Link}
-          href={`/paradas/lineas/${lineCode}`}
+          href={`/paradas/lineas/${data?.next_arrivals?.result?.line?.code}`}
         >
           Volver
         </Button>
       </Stack>
-      <Typography variant='h3' sx={{ textAlign: 'center', width: '100%', p: 2, color: 'primary.main' }}>
-        {data?.next_arrivals?.result && data?.next_arrivals?.result.length > 0
-          ? `Próximos arribos a la parada ${data?.next_arrivals?.result[0].line_description}`
-          : 'Próximos arribos a la parada'}
+      <Typography variant='h4' sx={{color: 'primary.main', textAlign: 'center', width: '100%'}}>
+        Próximos arribos
       </Typography>
-      {data?.next_arrivals?.result && data?.next_arrivals?.result.length > 0 ? (
+      <Typography variant='subtitle1'>
+        {`Parada: ${data?.next_arrivals?.result?.stop?.description || ''}`}
+      </Typography>
+      <Typography variant='subtitle1'>
+        {`Linea: ${data?.next_arrivals?.result?.line?.lineDescription || ''}`}
+      </Typography>
+      {data?.next_arrivals?.result && data?.next_arrivals?.result?.data?.length > 0 ? (
         <Grid2 container spacing={5} sx={{ width: '100%' }}>
-          {data?.next_arrivals.result.map((arrival, index: number) => (
+          {data?.next_arrivals?.result?.data?.map((arrival, index: number) => (
             <Grid2 size={12} key={index}>
               <AnimatedCard index={index}>
                 <Stack

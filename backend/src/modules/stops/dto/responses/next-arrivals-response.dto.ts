@@ -2,7 +2,7 @@ import { ObjectType, Field } from '@nestjs/graphql';
 import { MessageEntityResponse } from 'src/core/dto/message-entity-response.dto';
 
 @ObjectType()
-export class NextArrivalsResult {
+class DataNextArrivalsResponse {
   @Field(() => String)
   line_description: string;
 
@@ -56,7 +56,44 @@ export class NextArrivalsResult {
 }
 
 @ObjectType()
+class StopNextArrivalsResponse {
+  @Field(() => String)
+  description: string;
+
+  @Field(() => String)
+  lat: string;
+
+  @Field(() => String)
+  lng: string;
+
+  @Field(() => String)
+  identificator: string;
+}
+
+@ObjectType()
+class LineaNextArrivalsResponse {
+  @Field(() => String)
+  lineDescription: string;
+
+  @Field(() => String)
+  code: string;
+}
+
+@ObjectType()
+export class NextArrivalsResult {
+  @Field(() => StopNextArrivalsResponse, { nullable: true })
+  stop?: StopNextArrivalsResponse;
+
+  @Field(() => LineaNextArrivalsResponse, { nullable: true })
+  line?: LineaNextArrivalsResponse;
+  
+  @Field(() => [DataNextArrivalsResponse], { nullable: true })
+  data?: DataNextArrivalsResponse[]
+}
+
+
+@ObjectType()
 export class NextArrivalsResponse extends MessageEntityResponse {
-  @Field(() => [NextArrivalsResult], { nullable: true })
-  result?: NextArrivalsResult[];
+  @Field(() => NextArrivalsResult, { nullable: true })
+  result?: NextArrivalsResult;
 }

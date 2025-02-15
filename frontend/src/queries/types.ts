@@ -60,8 +60,8 @@ export type LinesResponse = ApiResponse<
   'lines'
 >
 
-export type NextArrivalsResponse = ApiResponse<
-  Array<{
+export type NextArrivalsResponse = ApiResponse<{
+  data: {
     line_description: string
     flag_description: string
     arrival: string
@@ -79,9 +79,18 @@ export type NextArrivalsResponse = ApiResponse<
     error_message: string
     stop_line_code: string
     position: string
-  }>,
-  'next_arrivals'
->
+  }[],
+  stop: {
+    description: string
+    lat: number
+    lng: number
+    identificator: string
+  },
+  line: {
+    lineDescription: string
+    code: string
+  }
+}, 'next_arrivals'>
 
 export type LineQueryResult = {
   data: LineType[]

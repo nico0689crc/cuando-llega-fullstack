@@ -11,7 +11,7 @@ const NextArrivalsPage = async ({ params }: NextArrivalsPageProps) => {
 
   try {
     const data = await fetchNextArrivals({ lineCode, stopIdentifier })
-    return <NextArrivalsView data={data} lineCode={lineCode} />
+    return <NextArrivalsView data={data}/>
   } catch (error) {
     throw new Error('Error fetching next arrivals')
   }
