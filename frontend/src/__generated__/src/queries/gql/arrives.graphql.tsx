@@ -20,25 +20,37 @@ export const Next_ArrivalsDocument = gql`
   next_arrivals(stopIdentifier: $stopIdentifier, lineCode: $lineCode) {
     message
     statusCode
-    result {
-      line_description
-      flag_description
-      arrival
-      latitude
-      longitude
-      stop_latitude
-      stop_longitude
-      short_flag_description
-      flag_sign_description
-      is_adapted
-      car_identifier
-      driver_identifier
-      schedule_deviation
-      last_gps_date
-      error_message
-      stop_line_code
-      position
-    }
+      result {
+          stop {
+              description
+              lat
+              lng
+              identificator
+          }
+          line {
+              lineDescription
+              code
+          }
+          data {
+              line_description
+              flag_description
+              arrival
+              latitude
+              longitude
+              stop_latitude
+              stop_longitude
+              short_flag_description
+              flag_sign_description
+              is_adapted
+              car_identifier
+              driver_identifier
+              schedule_deviation
+              last_gps_date
+              error_message
+              stop_line_code
+              position
+          }
+      }
   }
 }
     `;
