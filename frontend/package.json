@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "codegen": "node -r dotenv/config $(yarn bin)/graphql-let",
-    "dev": "npm run codegen && next dev --turbopack",
+    "dev": "next dev --turbopack",
     "build": "npm run codegen && next build",
     "start": "next start",
     "lint": "next lint",

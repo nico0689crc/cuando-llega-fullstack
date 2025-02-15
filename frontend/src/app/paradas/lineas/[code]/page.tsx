@@ -21,16 +21,16 @@ const ParadasLineaPage = async ({ params }: ParadasLineaPageProps) => {
   }
 }
 
-// export async function generateStaticParams() {
-//   const {
-//     lines: { result }
-//   } = await fetchLines()
+export async function generateStaticParams() {
+  const {
+    lines: { result }
+  } = await fetchLines()
 
-//   return (
-//     result?.data?.map((line) => ({
-//       params: { code: line.code }
-//     })) || []
-//   ) 
-// }
+  return (
+    result?.data?.map((line) => ({
+      params: { code: line.code }
+    })) || []
+  ) 
+}
 
 export default ParadasLineaPage
