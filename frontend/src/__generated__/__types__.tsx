@@ -19,6 +19,27 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
+export type DataNextArrivalsResponse = {
+  __typename?: 'DataNextArrivalsResponse';
+  arrival: Scalars['String']['output'];
+  car_identifier: Scalars['String']['output'];
+  driver_identifier: Scalars['String']['output'];
+  error_message: Scalars['String']['output'];
+  flag_description: Scalars['String']['output'];
+  flag_sign_description: Scalars['String']['output'];
+  is_adapted: Scalars['String']['output'];
+  last_gps_date: Scalars['String']['output'];
+  latitude: Scalars['String']['output'];
+  line_description: Scalars['String']['output'];
+  longitude: Scalars['String']['output'];
+  position: Scalars['String']['output'];
+  schedule_deviation: Scalars['String']['output'];
+  short_flag_description: Scalars['String']['output'];
+  stop_latitude: Scalars['String']['output'];
+  stop_line_code: Scalars['String']['output'];
+  stop_longitude: Scalars['String']['output'];
+};
+
 export type Line = {
   __typename?: 'Line';
   code: Scalars['ID']['output'];
@@ -38,6 +59,12 @@ export type LineResponse = {
 export type LineSingleResponse = {
   __typename?: 'LineSingleResponse';
   data: Line;
+};
+
+export type LineaNextArrivalsResponse = {
+  __typename?: 'LineaNextArrivalsResponse';
+  code: Scalars['String']['output'];
+  lineDescription: Scalars['String']['output'];
 };
 
 export type LinesFindAllResponse = {
@@ -75,29 +102,15 @@ export type NearestStopsResultResponse = {
 export type NextArrivalsResponse = {
   __typename?: 'NextArrivalsResponse';
   message?: Maybe<Scalars['String']['output']>;
-  result?: Maybe<Array<NextArrivalsResult>>;
+  result?: Maybe<NextArrivalsResult>;
   statusCode?: Maybe<Scalars['Int']['output']>;
 };
 
 export type NextArrivalsResult = {
   __typename?: 'NextArrivalsResult';
-  arrival: Scalars['String']['output'];
-  car_identifier: Scalars['String']['output'];
-  driver_identifier: Scalars['String']['output'];
-  error_message: Scalars['String']['output'];
-  flag_description: Scalars['String']['output'];
-  flag_sign_description: Scalars['String']['output'];
-  is_adapted: Scalars['String']['output'];
-  last_gps_date: Scalars['String']['output'];
-  latitude: Scalars['String']['output'];
-  line_description: Scalars['String']['output'];
-  longitude: Scalars['String']['output'];
-  position: Scalars['String']['output'];
-  schedule_deviation: Scalars['String']['output'];
-  short_flag_description: Scalars['String']['output'];
-  stop_latitude: Scalars['String']['output'];
-  stop_line_code: Scalars['String']['output'];
-  stop_longitude: Scalars['String']['output'];
+  data?: Maybe<Array<DataNextArrivalsResponse>>;
+  line?: Maybe<LineaNextArrivalsResponse>;
+  stop?: Maybe<StopNextArrivalsResponse>;
 };
 
 export type Query = {
@@ -155,6 +168,14 @@ export type StopLine = {
   position: Scalars['Int']['output'];
   stop?: Maybe<Stop>;
   stopCode: Scalars['String']['output'];
+};
+
+export type StopNextArrivalsResponse = {
+  __typename?: 'StopNextArrivalsResponse';
+  description: Scalars['String']['output'];
+  identificator: Scalars['String']['output'];
+  lat: Scalars['String']['output'];
+  lng: Scalars['String']['output'];
 };
 
 
@@ -229,12 +250,14 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  DataNextArrivalsResponse: ResolverTypeWrapper<DataNextArrivalsResponse>;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Line: ResolverTypeWrapper<Line>;
   LineResponse: ResolverTypeWrapper<LineResponse>;
   LineSingleResponse: ResolverTypeWrapper<LineSingleResponse>;
+  LineaNextArrivalsResponse: ResolverTypeWrapper<LineaNextArrivalsResponse>;
   LinesFindAllResponse: ResolverTypeWrapper<LinesFindAllResponse>;
   LinesResponse: ResolverTypeWrapper<LinesResponse>;
   NearestStopsResponse: ResolverTypeWrapper<NearestStopsResponse>;
@@ -244,18 +267,21 @@ export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
   Stop: ResolverTypeWrapper<Stop>;
   StopLine: ResolverTypeWrapper<StopLine>;
+  StopNextArrivalsResponse: ResolverTypeWrapper<StopNextArrivalsResponse>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output'];
+  DataNextArrivalsResponse: DataNextArrivalsResponse;
   Float: Scalars['Float']['output'];
   ID: Scalars['ID']['output'];
   Int: Scalars['Int']['output'];
   Line: Line;
   LineResponse: LineResponse;
   LineSingleResponse: LineSingleResponse;
+  LineaNextArrivalsResponse: LineaNextArrivalsResponse;
   LinesFindAllResponse: LinesFindAllResponse;
   LinesResponse: LinesResponse;
   NearestStopsResponse: NearestStopsResponse;
@@ -265,7 +291,29 @@ export type ResolversParentTypes = {
   Query: {};
   Stop: Stop;
   StopLine: StopLine;
+  StopNextArrivalsResponse: StopNextArrivalsResponse;
   String: Scalars['String']['output'];
+};
+
+export type DataNextArrivalsResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['DataNextArrivalsResponse'] = ResolversParentTypes['DataNextArrivalsResponse']> = {
+  arrival?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  car_identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  driver_identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  error_message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  flag_description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  flag_sign_description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  is_adapted?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  last_gps_date?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  latitude?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  line_description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  longitude?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  position?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  schedule_deviation?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  short_flag_description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  stop_latitude?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  stop_line_code?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  stop_longitude?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type LineResolvers<ContextType = any, ParentType extends ResolversParentTypes['Line'] = ResolversParentTypes['Line']> = {
@@ -286,6 +334,12 @@ export type LineResponseResolvers<ContextType = any, ParentType extends Resolver
 
 export type LineSingleResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['LineSingleResponse'] = ResolversParentTypes['LineSingleResponse']> = {
   data?: Resolver<ResolversTypes['Line'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type LineaNextArrivalsResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['LineaNextArrivalsResponse'] = ResolversParentTypes['LineaNextArrivalsResponse']> = {
+  code?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  lineDescription?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -323,29 +377,15 @@ export type NearestStopsResultResponseResolvers<ContextType = any, ParentType ex
 
 export type NextArrivalsResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['NextArrivalsResponse'] = ResolversParentTypes['NextArrivalsResponse']> = {
   message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  result?: Resolver<Maybe<Array<ResolversTypes['NextArrivalsResult']>>, ParentType, ContextType>;
+  result?: Resolver<Maybe<ResolversTypes['NextArrivalsResult']>, ParentType, ContextType>;
   statusCode?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type NextArrivalsResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['NextArrivalsResult'] = ResolversParentTypes['NextArrivalsResult']> = {
-  arrival?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  car_identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  driver_identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  error_message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  flag_description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  flag_sign_description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  is_adapted?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  last_gps_date?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  latitude?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  line_description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  longitude?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  position?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  schedule_deviation?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  short_flag_description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  stop_latitude?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  stop_line_code?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  stop_longitude?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  data?: Resolver<Maybe<Array<ResolversTypes['DataNextArrivalsResponse']>>, ParentType, ContextType>;
+  line?: Resolver<Maybe<ResolversTypes['LineaNextArrivalsResponse']>, ParentType, ContextType>;
+  stop?: Resolver<Maybe<ResolversTypes['StopNextArrivalsResponse']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -379,10 +419,20 @@ export type StopLineResolvers<ContextType = any, ParentType extends ResolversPar
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type StopNextArrivalsResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['StopNextArrivalsResponse'] = ResolversParentTypes['StopNextArrivalsResponse']> = {
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  identificator?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  lat?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  lng?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = any> = {
+  DataNextArrivalsResponse?: DataNextArrivalsResponseResolvers<ContextType>;
   Line?: LineResolvers<ContextType>;
   LineResponse?: LineResponseResolvers<ContextType>;
   LineSingleResponse?: LineSingleResponseResolvers<ContextType>;
+  LineaNextArrivalsResponse?: LineaNextArrivalsResponseResolvers<ContextType>;
   LinesFindAllResponse?: LinesFindAllResponseResolvers<ContextType>;
   LinesResponse?: LinesResponseResolvers<ContextType>;
   NearestStopsResponse?: NearestStopsResponseResolvers<ContextType>;
@@ -392,5 +442,6 @@ export type Resolvers<ContextType = any> = {
   Query?: QueryResolvers<ContextType>;
   Stop?: StopResolvers<ContextType>;
   StopLine?: StopLineResolvers<ContextType>;
+  StopNextArrivalsResponse?: StopNextArrivalsResponseResolvers<ContextType>;
 };
 

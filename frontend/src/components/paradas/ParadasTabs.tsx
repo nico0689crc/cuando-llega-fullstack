@@ -4,8 +4,8 @@ import { Tabs, Tab } from '@mui/material'
 import { usePathname, useRouter } from 'next/navigation'
 
 const tabs = [
-  { label: 'Calles', path: '/paradas/calles' },
-  { label: 'Lineas', path: '/paradas/lineas' }
+  { label: 'Lineas', path: '/paradas/lineas' },
+  { label: 'Calles', path: '/paradas/calles' }
 ]
 
 const ParadasTabs = () => {

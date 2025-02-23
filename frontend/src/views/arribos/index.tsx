@@ -5,12 +5,34 @@ import CustomAvatar from '@core/components/mui/Avatar'
 import { NextArrivalsResponse } from '@/queries/types'
 import { Grid2, Typography, Stack, Button } from '@mui/material'
 import Link from '@mui/material/Link'
+import { useEffect, useState } from 'react'
+import { fetchNextArrivals } from '@/queries'
 
 type NextArrivalsViewProps = {
-  data: NextArrivalsResponse
+  data?: NextArrivalsResponse
 }
 
 const NextArrivalsView = ({ data }: NextArrivalsViewProps) => {
+  const [arribos, setArribos] = useState<NextArrivalsResponse | null>(data || null)
+
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      const lineCode = arribos?.next_arrivals?.result?.line?.code;
+      const stopIdentifier = arribos?.next_arrivals?.result?.stop?.identificator;
+
+      if(lineCode && stopIdentifier ) {
+        const response = await fetchNextArrivals({ 
+          lineCode,
+          stopIdentifier 
+        });
+
+          setArribos(structuredClone(response));
+      }
+    }, 10000); 
+
+    return () => clearInterval(interval);
+  }, [])
+
   return (
     <Stack direction='column' spacing={2} alignItems='flex-start' justifyContent='flex-start'>
       <Stack direction='row' justifyContent='space-between' alignItems='center' width='100%'>

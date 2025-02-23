@@ -3,11 +3,10 @@ import type { ChildrenType } from '@core/types'
 
 // Third-party Imports
 import classNames from 'classnames'
-import { Button, Card, CardContent, Container } from '@mui/material'
+import { Button, Container } from '@mui/material'
 
 // Component Imports
 import Header from '@core/components/layout/Header'
-import Steppers from '@core/components/steppers'
 import ScrollToTop from '../scroll-to-top'
 
 // Server Action Imports
@@ -24,10 +23,7 @@ const FrontLayout = async ({ children }: ChildrenType) => {
     <div className={classNames(frontLayoutClasses.root, 'flex flex-col min-h-screen mb-10')}>
       <Header mode={mode} />
       <Container maxWidth='md' className='flex flex-col gap-10'>
-        <Steppers />
-        <Card sx={{ borderRadius: 1.5 }} className='flex-grow'>
-          <CardContent className='flex flex-col min-h-96'>{children}</CardContent>
-        </Card>
+        {children}
         <ScrollToTop className='mui-fixed'>
           <Button
             variant='contained'

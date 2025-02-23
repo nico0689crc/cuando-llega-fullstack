@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/paradas',
-        destination: '/paradas/calles',
+        destination: '/paradas/lineas',
         permanent: true,
       }
     ];
